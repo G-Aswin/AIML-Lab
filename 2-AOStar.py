@@ -35,8 +35,7 @@ class Graph:
     
     def computeMinimumCostChildNodes(self, v):
         minimumCost=0
-        costToChildNodeListDict={}
-        costToChildNodeListDict[minimumCost]=[]
+        mincostNL = []
         flag=True
         for neighbor in self.getNeighbors(v): 
             cost=0
@@ -45,17 +44,12 @@ class Graph:
                 cost=cost+self.getHeuristicNodeValue(c)+weight
                 nodeList.append(c)
             
-            if flag==True:                     
+            if flag==True or minimumCost > cost:                     
                 minimumCost=cost
-                costToChildNodeListDict[minimumCost]=nodeList     
+                mincostNL=nodeList.copy()
                 flag=False
-            else:                              
-                if minimumCost>cost:
-                    minimumCost=cost
-                    costToChildNodeListDict[minimumCost]=nodeList
-                
               
-        return minimumCost, costToChildNodeListDict[minimumCost]  
+        return minimumCost, mincostNL  
                      
     
     def aoStar(self, v, backTracking):  
